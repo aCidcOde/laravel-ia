@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="text-muted">Com link disponível</div>
                     <div class="h1 mb-3">{{ $certidoes->whereNotNull('arquivo_url')->count() }}</div>
-                    <p class="text-muted mb-0">Certidões que possuem arquivo digital pronto para download.</p>
+                    <p class="text-muted mb-0">Certidões para download.</p>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
             <div>
                 <h3 class="card-title mb-0">Lista de certidões</h3>
-                <p class="text-muted mb-0">Todas as certidões associadas ao seu usuário.</p>
+                <p class="text-muted mb-0">Certidões associadas ao seu usuário.</p>
             </div>
         </div>
         <div class="table-responsive">

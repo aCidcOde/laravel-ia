@@ -65,6 +65,10 @@
                 padding: clamp(3rem, 8vw, 5rem) 0;
             }
 
+            header#home {
+                padding-top: 10px;
+            }
+
             .hero {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -102,6 +106,48 @@
             p {
                 margin: 0 0 1rem;
                 color: var(--muted);
+            }
+
+            .top-nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0 0;
+                font-size: 0.9rem;
+                color: var(--muted);
+            }
+
+            .top-nav a {
+                color: var(--text);
+                font-weight: 500;
+            }
+
+            .top-nav a:hover {
+                color: var(--accent);
+            }
+
+            .top-nav-phone {
+                font-weight: 600;
+                color: var(--accent);
+            }
+
+            .top-nav-cta {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.55rem 1.5rem;
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: 0.85rem;
+                background: linear-gradient(120deg, var(--accent), var(--accent-strong));
+                color: #0f172a;
+                box-shadow: 0 10px 25px rgba(14, 165, 233, 0.25);
+                border: 1px solid rgba(56, 189, 248, 0.6);
+            }
+
+            .top-nav-cta:hover {
+                box-shadow: 0 16px 30px rgba(14, 165, 233, 0.35);
+                transform: translateY(-1px);
             }
 
             .cta-row {
@@ -270,6 +316,15 @@
         <div class="page">
             <div class="container">
                 <header id="home">
+                    <div class="top-nav">
+                        <div class="flex items-center gap-3 top-nav-logo">
+                            <img src="/planeta-certidoes.png" alt="Planeta Certidões" style="height:60px; margin:10px; width:auto;" />
+                            
+                        </div>
+                        <div>
+                            <a class="top-nav-cta" href="{{ route('register') }}">Criar conta</a>
+                        </div>
+                    </div>
                     <div class="hero">
                         <div>
                             <p class="eyebrow">Serviço de hospedagem digital</p>
