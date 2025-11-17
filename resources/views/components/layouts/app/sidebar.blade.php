@@ -21,7 +21,7 @@
             <header class="navbar navbar-expand-md navbar-dark sticky-top" style="background:rgba(0,0,0,0.25);backdrop-filter:blur(10px);">
                 <div class="container-xl">
                     <a href="{{ route('dashboard') }}" class="navbar-brand d-flex align-items-center" aria-label="Planeta Certidões">
-                        <img src="/planeta-certidoes.png" alt="Planeta Certidões" style="height:32px;margin-left:5px; width:auto;" class="me-2" />
+                        <img src="/planeta-certidoes.png" alt="Planeta Certidões" style="height:32px;margin-right:20px; width:auto;" class="me-2" />
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

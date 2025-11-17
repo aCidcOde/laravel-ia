@@ -35,6 +35,14 @@ body {
     box-shadow: 0 25px 60px rgba(2, 6, 23, 0.35);
 }
 
+.card-body label {
+    color: #e5e7eb;
+}
+
+.card-body [data-flux-label] {
+    color: #ffffff !important;
+}
+
 .badge-keyword {
     background-color: rgba(56, 189, 248, 0.15);
     color: #38bdf8;

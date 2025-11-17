@@ -1,5 +1,5 @@
 @php($user = auth()->user())
-<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between w-100 gap-3" id="navbar-menu">
+<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between w-100 gap-3 ml-2" id="navbar-menu">
     <nav class="mr-3 d-flex flex-wrap align-items-center gap-3">
         <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('dashboard') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('dashboard') }}">
             <i class="ti ti-layout-dashboard me-1"></i> Dashboard
