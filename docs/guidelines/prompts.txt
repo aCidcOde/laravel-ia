@@ -1,0 +1,269 @@
+card 1
+Você está trabalhando no projeto Laravel 12 chamado Planeta Certidões.
+
+Antes de qualquer coisa, LEIA:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/10-certidoes-catalogo.md
+
+Confirme internamente que leu e entendeu esses arquivos e então execute a tarefa abaixo.
+
+Tarefa – Catálogo de certidões:
+
+1. Criar a migration da tabela `certificate_types` exatamente como descrito em 10-certidoes-catalogo.md:
+   - id, code, name, provider, description, base_price, is_active, timestamps.
+   - code deve ser único.
+
+2. Criar o model `App\Models\CertificateType`:
+   - Campos fillable coerentes (code, name, provider, description, base_price, is_active).
+   - Nenhuma lógica extra por enquanto.
+
+3. Criar um seeder para popular `certificate_types` com TODAS as certidões e valores definidos no guideline 10 (PGU, PGFN, CECT, CEATPF, etc.):
+   - Utilize um array único com todos os registros e faça insert em massa.
+   - Garantir que base_price seja decimal com duas casas.
+
+4. Registrar o seeder em `DatabaseSeeder` para que rode com `php artisan db:seed`.
+
+5. Criar testes PHPUnit:
+   - Teste 1: rodar as migrations e verificar se a tabela `certificate_types` existe e tem as colunas principais (code, base_price, is_active).
+   - Teste 2: rodar o seeder e garantir que o número de registros na tabela é igual ao número de certidões definidas no guideline (confira a contagem).
+
+Regras:
+- Não alterar nada relacionado às rotas `/` e `/dashboard`.
+- Seguir a stack descrita em 00-master-guideline.md (Laravel 12, etc.).
+- Use nomes de arquivos de migration padrão do Laravel.
+
+
+
+--------------------------------------------------
+card 2
+Projeto: Planeta Certidões.
+
+Leia ANTES:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/10-certidoes-catalogo.md
+- docs/guidelines/20-pedidos-wizard.md
+
+Após ler, implemente:
+
+Tarefa – Modelagem básica de pedidos:
+
+1. Criar migrations para:
+   a) `subjects`
+      - Campos conforme 20-pedidos-wizard.md (type, name, document, state, city, extra_data, timestamps).
+   b) `orders`
+      - user_id (FK para users), subject_id (FK para subjects),
+      - status, total_amount, currency, requester_* (name, document, email, phone), meta (json), timestamps.
+   c) `order_items`
+      - order_id (FK), certificate_type_id (FK),
+      - quantity, unit_price, total_price, status, meta (json), timestamps.
+
+2. Criar models:
+   - `App\Models\Subject`
+   - `App\Models\Order`
+   - `App\Models\OrderItem`
+   - Configurar os relacionamentos Eloquent:
+     - Subject hasMany Orders.
+     - Order belongsTo Subject e belongsTo User.
+     - Order hasMany OrderItems.
+     - OrderItem belongsTo Order e belongsTo CertificateType.
+
+3. Criar factories para:
+   - Subject
+   - Order
+   - OrderItem
+   de forma mínima, mas funcional.
+
+4. Criar testes PHPUnit (Feature ou Unit) para:
+   - Verificar que `Subject` consegue ter múltiplos `Order`.
+   - Verificar que `Order` acessa corretamente `subject`, `user` e `items`.
+   - Verificar que `OrderItem` acessa corretamente `order` e `certificateType`.
+
+Regras:
+- Não alterar o modelo legado `App\Models\Certidao` ainda.
+- Manter nomes de tabelas e campos exatamente como definidos no guideline 20.
+
+
+--------------------------------------------------
+card 3
+Projeto: Planeta Certidões.
+
+Leia:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/20-pedidos-wizard.md
+
+Tarefa – Wizard "Novo Pedido" – ETAPA 1:
+
+1. Criar uma rota protegida (auth + verified) para iniciar o wizard:
+   - Ex: GET `/orders/new`
+   - Usar um layout consistente com o dashboard (layouts/partials/dashboard-nav.blade.php e layouts em components/layouts).
+
+2. Criar um componente Livewire v3 ou Volt para o wizard (sugestão de caminho):
+   - `app/Livewire/Orders/NewOrderWizard.php`
+   - Ele deve controlar o "step atual" e armazenar o ID do `order` em construção.
+
+3. Implementar a **Etapa 1 (Solicitações)**:
+   - Formulário para escolher tipo de sujeito (PF/PJ/Imóvel).
+   - Campos básicos conforme guideline:
+     - Para PF: name, document (CPF), state (UF), city, data opcional, perfil.
+     - Para PJ/Imóvel, seguir campos mínimos descritos.
+   - Um card lateral com preview dos dados preenchidos (nome, documento, cidade/estado).
+
+4. Ao clicar em "Avançar":
+   - Validar campos obrigatórios (mínimo: name, document, state, city).
+   - Criar ou atualizar um `Subject`.
+   - Criar um `Order` com:
+     - `user_id = auth()->id()`
+     - `subject_id` definido
+     - `status = 'draft'`
+   - Armazenar o ID do order no estado do componente para uso nas próximas etapas.
+   - Avançar o "step" para Etapa 2 (sem implementar o layout da Etapa 2 ainda, apenas estruturar o controle de steps).
+
+5. Criar um teste de feature que:
+   - Autentica um usuário.
+   - Acessa `/orders/new`.
+   - Submete o formulário da Etapa 1 com dados válidos.
+   - Verifica se um `Subject` e um `Order` foram criados e se o `Order` tem status `draft`.
+
+Regras:
+- NÃO implementar ainda a seleção de certidões (Etapa 2) neste card; apenas preparar o wizard e a primeira etapa.
+- Usar o padrão de componentes e layouts já presente no projeto (ver 00-master-guideline.md).
+
+
+--------------------------------------------------
+card 4
+Projeto: Planeta Certidões.
+
+Leia:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/10-certidoes-catalogo.md
+- docs/guidelines/20-pedidos-wizard.md
+
+Considere que o componente do wizard e a Etapa 1 já existem (Card 03).
+
+Tarefa – Wizard "Novo Pedido" – ETAPA 2 (Certidões):
+
+1. No mesmo componente de wizard usado na Etapa 1, implementar a Etapa 2:
+   - Listagem das certidões a partir da tabela `certificate_types`.
+   - Campo de Estado (UF) já preenchido com base no `Subject` do `Order`.
+   - Para v1, pode ser uma lista simples com:
+     - checkbox,
+     - nome,
+     - provider,
+     - preço base.
+
+2. Funcionalidade:
+   - Ao marcar/desmarcar uma certidão:
+     - Criar/atualizar/remover registros em `order_items` para o `order` em andamento.
+     - `unit_price` deve copiar `base_price` da certidão.
+     - `total_price = quantity * unit_price`, com quantity default 1.
+   - Botão "DESMARCAR TUDO" que remove todos os `order_items` do pedido.
+
+3. Botões:
+   - "Voltar" → retorna à Etapa 1 (sem perder dados).
+   - "Avançar" → valida que existe pelo menos um `order_item` associado ao `order` e então passa para a Etapa 3.
+
+4. Mostrar um resumo parcial do valor:
+   - Em algum lugar da UI, exibir `soma(order_items.total_price)` atual para o pedido.
+
+5. Criar testes de feature para:
+   - Dado um pedido `draft`, ao marcar N certidões, cria N registros em `order_items`.
+   - Não permitir avançar para Etapa 3 se nenhuma certidão estiver selecionada.
+
+Regras:
+- Não mexer ainda na parte de solicitante/pagamento (Etapa 3).
+- Não alterar rotas existentes `/` e `/dashboard`.
+
+
+--------------------------------------------------
+card 5
+Projeto: Planeta Certidões.
+
+Leia:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/20-pedidos-wizard.md
+
+Considere que Etapas 1 e 2 do wizard já estão implementadas.
+
+Tarefa – Wizard "Novo Pedido" – ETAPA 3:
+
+1. No componente do wizard, implementar a Etapa 3 com o layout sugerido:
+   - Coluna esquerda: resumo das certidões do pedido:
+     - Listar os `order_items` com nome da certidão, quantidade e total.
+     - Mostrar o valor total do pedido (soma de `total_price`).
+   - Coluna direita:
+     - Bloco "Informações Complementares" (placeholder para agora, se necessário).
+     - Bloco "Dados do solicitante" com campos:
+       - requester_name (obrigatório),
+       - requester_document (opcional),
+       - requester_email (obrigatório),
+       - requester_phone (obrigatório ou recomendado).
+
+2. Ao clicar em "Concluir":
+   - Validar campos obrigatórios do solicitante.
+   - Calcular o `total_amount` do pedido:
+     - `orders.total_amount = soma(order_items.total_price)`.
+   - Preencher os campos de solicitante no `Order`.
+   - Atualizar o `status` do pedido para `awaiting_payment`.
+   - Redirecionar o usuário para uma rota de pagamento do pedido (ex.: `/orders/{order}/payment`) que você pode criar como stub agora.
+
+3. Criar a rota de pagamento:
+   - GET `/orders/{order}/payment` (auth + verified).
+   - View simples que:
+     - Exibe resumo do pedido.
+     - Mostra o total.
+     - Exibe texto placeholder "Tela de pagamento em construção" (integração real virá em outro card).
+
+4. Criar testes de feature para:
+   - Fluxo completo do wizard:
+     - Preenche Etapa 1, Etapa 2, Etapa 3.
+     - Ao concluir, o pedido fica com status `aw
+
+----------------------------------------
+Card 6
+Projeto: Planeta Certidões.
+
+Leia:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/20-pedidos-wizard.md
+- docs/guidelines/30-pagamentos-pedido.md
+- docs/guidelines/40-saldo-carteira.md
+
+Tarefa – Carteira e pagamento com saldo:
+
+1. Criar migrations e models para:
+   a) `wallets`
+      - user_id, balance, timestamps.
+      - Garantir que cada user tenha no máximo uma carteira.
+   b) `wallet_transactions`
+      - wallet_id, type, source, amount, description, related_order_id, related_payment_id, timestamps.
+   c) `payments`
+      - order_id, user_id, method, amount, status, gateway_transaction_id, metadata (json), timestamps.
+
+2. Criar relacionamentos:
+   - User hasOne Wallet.
+   - Wallet belongsTo User, hasMany WalletTransactions.
+   - WalletTransaction belongsTo Wallet, belongsTo Order (opcional), belongsTo Payment (opcional).
+   - Order hasMany Payments.
+   - Payment belongsTo Order e belongsTo User.
+
+3. Implementar tela de "Saldo" simples:
+   - Rota protegida (auth): ex
+
+---------------------------------------
+card 7
+
+Projeto: Planeta Certidões.
+
+Leia:
+- docs/guidelines/00-master-guideline.md
+- docs/guidelines/50-contato-suporte.md
+
+Tarefa – Módulo de contato/suporte:
+
+1. Criar migration e model `SupportTicket` para a tabela `support_tickets` conforme guideline:
+   - user_id (nullable), order_id (nullable),
+   - subject, name, email, phone, message, status, timestamps.
+
+2. Criar uma rota para a página de contato:
+   - Ex.: GET `/contato` (auth opcional; pode começar apenas para usuários logados, se for mais simples).
+   - R

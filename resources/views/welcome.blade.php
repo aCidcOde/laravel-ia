@@ -125,6 +125,24 @@
                 color: var(--accent);
             }
 
+            .top-nav-contact {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                padding: 0.5rem 0.9rem;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                background: rgba(15, 23, 42, 0.7);
+                color: var(--text);
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .top-nav-contact:hover {
+                border-color: rgba(56, 189, 248, 0.45);
+                color: var(--accent);
+            }
+
             .top-nav-cta {
                 display: inline-flex;
                 align-items: center;
@@ -347,12 +365,13 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <a href="{{ url('/login') }}" class="top-nav-cta" style="background: transparent; color: var(--text); border-color: var(--border); box-shadow: none;">Entrar</a>
+                            <!--a class="top-nav-contact" href="tel:+5511948494857">(11) 9 4849-4857</a-->
                             <a class="top-nav-cta" href="{{ route('register') }}">Criar conta</a>
                         </div>
                     </div>
                     <div class="hero">
                         <div>
-                            <p class="eyebrow">Robô de due diligence</p>
+                            <p class="eyebrow">Melhor Robô do Planeta</p>
                             <h1>Emita certidões fácil e receba no email</h1>
                             <p>Cadastre sua conta, escolha as certidões, finalize o pagamento e deixe que o robô busque, acompanhe e entregue tudo para você. Sem filas, sem ligações para cartórios, sem assustar seu time.</p>
                             <div class="cta-row">
