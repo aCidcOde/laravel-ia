@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            CertificateTypeSeeder::class,
+        ]);
+
         $user = User::updateOrCreate(
             ['email' => 'acidkp@gmail.com'],
             [
