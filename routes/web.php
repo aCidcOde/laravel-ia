@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Orders\NewOrderWizard;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -19,6 +20,10 @@ Route::get('dashboard', function () {
 })
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('orders/new', NewOrderWizard::class)->name('orders.new');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
