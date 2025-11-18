@@ -1,4 +1,4 @@
-<div class="py-4">
+<div class="">
     <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
         <div>
             <p class="text-muted mb-1 text-uppercase fw-semibold small">Novo Pedido</p>

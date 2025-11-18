@@ -1,4 +1,11 @@
 <x-layouts.app :title="__('Saldo')">
+    <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <p class="text-muted mb-1 text-uppercase fw-semibold small">Saldo e Extrato</p>
+            <h2 class="mb-0">Veja o valor disponivel em sua conta</h2>
+            <p class="text-muted mb-0">Nao esqueça de fazer as recargas.</p>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-4">
             <div class="card">
