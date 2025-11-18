@@ -216,7 +216,12 @@ Tarefa – Wizard "Novo Pedido" – ETAPA 3:
 4. Criar testes de feature para:
    - Fluxo completo do wizard:
      - Preenche Etapa 1, Etapa 2, Etapa 3.
-     - Ao concluir, o pedido fica com status `aw
+     - Ao concluir, o pedido fica com status `awaiting_payment` e total_amount correto.
+     - O redirect vai para `/orders/{order}/payment`.
+
+Regras:
+- Não implementar lógica real de pagamento aqui (isso será feito no card de pagamento/saldo).
+- Manter o wizard como um único componente Livewire/Volt, controlando o step atual.
 
 ----------------------------------------
 Card 6
@@ -247,11 +252,37 @@ Tarefa – Carteira e pagamento com saldo:
    - Payment belongsTo Order e belongsTo User.
 
 3. Implementar tela de "Saldo" simples:
-   - Rota protegida (auth): ex
+   - Rota protegida (auth): ex. GET `/saldo`.
+   - Mostrar saldo atual do usuário (criando carteira automaticamente se necessário).
+   - Listar transações recentes da carteira.
+
+4. Implementar pagamento do pedido com saldo na rota `/orders/{order}/payment`:
+   - Exibir saldo atual do usuário.
+   - Se `wallet.balance >= order.total_amount`, mostrar botão "Pagar com saldo".
+   - Ao clicar:
+     - Verificar saldo suficiente.
+     - Criar `payment` com:
+       - method = 'wallet',
+       - amount = order.total_amount,
+       - status = 'paid'.
+     - Criar `wallet_transaction` de débito:
+       - type = 'debit',
+       - source = 'order_payment',
+       - amount = order.total_amount,
+       - related_order_id e related_payment_id preenchidos.
+     - Atualizar `wallet.balance`.
+     - Atualizar `order.status` para 'paid' (ou 'in_progress', conforme guideline 30).
+
+5. Criar testes de feature:
+   - Cenário 1: usuário com carteira e saldo suficiente consegue pagar um pedido `awaiting_payment` com saldo.
+   - Cenário 2: usuário com saldo insuficiente não consegue pagar com saldo (boa mensagem de erro e nenhum payment/transaction inválido é criado).
+
+Regras:
+- Não implementar integração com gateways externos neste card (PIX, cartão, boleto só no futuro).
+- Não alterar as rotas `/` e `/dashboard`.
 
 ---------------------------------------
 card 7
-
 Projeto: Planeta Certidões.
 
 Leia:
@@ -266,4 +297,33 @@ Tarefa – Módulo de contato/suporte:
 
 2. Criar uma rota para a página de contato:
    - Ex.: GET `/contato` (auth opcional; pode começar apenas para usuários logados, se for mais simples).
-   - R
+   - Rota protegida por auth no v1 (para simplificar):
+     - `->middleware(['auth', 'verified'])`
+
+3. Criar uma view ou componente Livewire para o formulário:
+   - Campos: subject, name, email, phone, order_id (opcional), message.
+   - Se o usuário estiver autenticado:
+     - Preencher name/email automaticamente com dados do usuário.
+   - Permitir que `order_id` venha por query string (ex.: `/contato?order=123`) e pré-preencha o campo.
+
+4. Ao enviar o formulário:
+   - Validar campos obrigatórios (subject, name, email, message).
+   - Criar um registro em `support_tickets` com:
+     - user_id (se autenticado),
+     - order_id se informado,
+     - status inicial `open`.
+
+5. Criar um pequeno link/botão na tela de detalhes de pedido (se existir) para:
+   - "Falar com suporte sobre este pedido"
+   - Esse link deve apontar para `/contato?order={order_id}`.
+
+6. Criar testes de feature:
+   - Criar ticket autenticado: enviar formulário com dados válidos, verificar que o registro existe e status é `open`.
+   - Criar ticket a partir de pedido: acessar `/contato?order={id}` e verificar que o ticket salvo tem `order_id` correto.
+
+7. Adicionar os links das features no menu
+
+Regras:
+- Não é necessário implementar painel de atendimento administrativo neste card.
+- Manter o estilo visual consistente com o restante do app (layouts existentes).
+

@@ -23,6 +23,13 @@ Route::get('dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('orders/new', NewOrderWizard::class)->name('orders.new');
+    Route::get('orders/{order}/payment', function (\App\Models\Order $order) {
+        abort_unless($order->user_id === auth()->id(), 403);
+
+        return view('orders.payment', [
+            'order' => $order->load(['items.certificateType', 'subject']),
+        ]);
+    })->name('orders.payment');
 });
 
 Route::middleware(['auth'])->group(function () {
