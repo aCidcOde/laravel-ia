@@ -2,17 +2,18 @@
 
 Este projeto é baseado no **Laravel Livewire Starter Kit** e já vem preparado com autenticação via Fortify, Livewire + Volt, Flux UI e Tailwind 4.
 
-## Funcionalidades básicas
+## Funcionalidades
 
-- Autenticação com Laravel Fortify (login, registro, recuperação de senha, verificação de e‑mail).
-- Dashboard autenticado acessível em `dashboard`.
-- Página de configurações em `settings` com seções para:
-  - Perfil (`settings/profile`)
-  - Senha (`settings/password`)
-  - Aparência (`settings/appearance`)
-  - Autenticação em duas etapas / 2FA (`settings/two-factor`)
+- Autenticação Fortify (login, registro, recuperação de senha, e‑mail verificado) + 2FA.
+- Wizard de novo pedido (3 etapas: sujeito, certidões, solicitante) com Livewire.
+- Catálogo de certidões (`certificate_types`), pedidos (`orders`) e itens (`order_items`).
+- Carteira com saldo (`wallets`, `wallet_transactions`) e pagamento de pedidos com saldo.
+- Listagem e detalhes de pedidos para o usuário, com link para pagamento e suporte.
+- Ticket de suporte (`support_tickets`) via formulário `/contato` com pré-preenchimento do pedido.
+- Dashboard autenticado com resumo de pedidos e saldo.
+- Página de configurações (`settings/*`) para perfil, senha, aparência e 2FA.
 - API básica para certidões em `POST api/certidoes`.
-- Integração com Livewire, Volt e Flux UI para componentes reativos.
+- UI com Livewire 3 + Volt, Flux UI e Tailwind 4.
 
 ## Stack principal
 
@@ -37,4 +38,3 @@ Este projeto é baseado no **Laravel Livewire Starter Kit** e já vem preparado 
 Ou use o atalho definido no `composer.json`:
 
 - Ambiente completo de desenvolvimento: `composer run dev`
-
