@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title mb-0">Formulário de contato</div>
-            <p class="text-muted small mb-0">Responderemos o mais breve possível.</p>
+            <p class="text-muted small mb-0" style="margin-left:10px">Responderemos o mais breve possível.</p>
         </div>
         <form wire:submit.prevent="submit">
             <div class="card-body">

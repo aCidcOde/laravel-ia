@@ -31,7 +31,7 @@
             </header>
 
             <div class="page-wrapper">
-                <div class="page-body ">
+                <div class="page-body pt-3">
                     <div class="container-xl">
                         {{ $slot }}
                     </div>

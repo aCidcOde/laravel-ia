@@ -32,7 +32,7 @@
                 <div class="card h-100">
                     <div class="card-header">
                         <div class="card-title mb-0">Resumo rápido</div>
-                        <p class="text-muted small mb-0">Visualize os dados antes de avançar.</p>
+                        <p class="text-muted small mb-0 ml-1" style="margin-left:10px">Visualize os dados antes de avançar.</p>
                     </div>
                     <div class="card-body">
                         <dl class="row mb-0">
@@ -72,7 +72,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             <h3 class="card-title mb-0">Dados do sujeito</h3>
-                            <p class="text-muted small mb-0">Campos mínimos: nome, documento, UF e cidade.</p>
+                            <p class="text-muted small mb-0 ml-1">Campos mínimos: nome, documento, UF e cidade.</p>
                         </div>
                     </div>
                     <form wire:submit.prevent="submitStepOne">
@@ -203,7 +203,7 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <div class="fw-semibold">{{ $certificateType->name }}</div>
-                                            <div class="text-muted small">{{ $certificateType->provider }}</div>
+                                            <div class="text-muted small ml-1">{{ $certificateType->provider }}</div>
                                         </div>
                                         <div class="fw-semibold">
                                             R$ {{ number_format($certificateType->base_price, 2, ',', '.') }}
@@ -223,7 +223,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title mb-0">Resumo parcial</div>
-                        <p class="text-muted small mb-0">Soma das certidões selecionadas.</p>
+                        <p class="text-muted small mb-0 ml-1">Soma das certidões selecionadas.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
@@ -251,7 +251,7 @@
                 <div class="card h-100">
                     <div class="card-header">
                         <div class="card-title mb-0">Certidões selecionadas</div>
-                        <p class="text-muted small mb-0">Revise o resumo antes de concluir.</p>
+                        <p class="text-muted small mb-0 ml-1">Revise o resumo antes de concluir.</p>
                     </div>
                     <div class="card-body">
                         <div class="list-group list-group-flush">
@@ -259,10 +259,10 @@
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
                                         <div class="fw-semibold">{{ $item->certificateType?->name ?? 'Certidão' }}</div>
-                                        <div class="text-muted small">{{ $item->certificateType?->provider }}</div>
+                                        <div class="text-muted small ml-1">{{ $item->certificateType?->provider }}</div>
                                     </div>
                                     <div class="text-end">
-                                        <div class="text-muted small">Qtd: {{ $item->quantity }}</div>
+                                        <div class="text-muted small ml-1">Qtd: {{ $item->quantity }}</div>
                                         <div class="fw-semibold">
                                             R$ {{ number_format($item->total_price, 2, ',', '.') }}
                                         </div>
@@ -285,7 +285,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <div class="card-title mb-0">Informações Complementares</div>
-                        <p class="text-muted small mb-0">Espaço reservado para dados adicionais.</p>
+                        <p class="text-muted small mb-0 ml-1">Espaço reservado para dados adicionais.</p>
                     </div>
                     <div class="card-body">
                         <div class="text-muted">
@@ -297,7 +297,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title mb-0">Dados do solicitante</div>
-                        <p class="text-muted small mb-0">Quem está solicitando este pedido.</p>
+                        <p class="text-muted small mb-0 ml-1">Quem está solicitando este pedido.</p>
                     </div>
                     <form wire:submit.prevent="finish">
                         <div class="card-body">

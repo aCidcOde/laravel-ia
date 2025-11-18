@@ -1,6 +1,6 @@
 @php($user = auth()->user())
 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between w-100 gap-3 ml-2" id="navbar-menu">
-    <nav class="mr-3 d-flex flex-wrap align-items-center gap-3">
+    <nav class="mr-3 d-flex flex-wrap align-items-center gap-3 justify-content-md-center w-100">
         <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('dashboard') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('dashboard') }}">
             <i class="ti ti-layout-dashboard me-1"></i> Inicio
         </a>
@@ -22,12 +22,7 @@
     </nav>
 
     <div class="d-flex align-items-center gap-3">
-        <form method="POST" action="{{ route('logout') }}" class="d-none d-md-inline">
-            @csrf
-            <button type="submit" class="btn btn-sm btn-outline-light">
-                <i class="ti ti-logout me-1"></i> {{ __('Sair') }}
-            </button>
-        </form>
+        
 
         <div class="dropdown">
             <a class="d-flex align-items-center text-decoration-none text-white gap-2" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +34,14 @@
                 <div class="text-muted text-xs">{{ $user?->email }}</div>
             </div>
         </a>
+
+        
             
     </div>
+    <form method="POST" action="{{ route('logout') }}" class="d-none d-md-inline">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-light">
+                <i class="ti ti-logout me-1"></i> {{ __('Sair') }}
+            </button>
+        </form>
 </div>

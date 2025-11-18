@@ -4,11 +4,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title mb-0">Saldo atual</div>
-                    <p class="text-muted small mb-0">Carteira vinculada à sua conta.</p>
+                    <p class="text-muted small mb-0" style="margin-left:10px">Carteira vinculada à sua conta.</p>
                 </div>
                 <div class="card-body">
-                    <div class="h2 mb-2">R$ {{ number_format($wallet->balance, 2, ',', '.') }}</div>
-                    <p class="text-muted mb-0">Use este saldo para pagar pedidos elegíveis.</p>
+                    <div class="h2 mb-2 mt-2">R$ {{ number_format($wallet->balance, 2, ',', '.') }}</div>
+                    <p class="text-muted mb-0" >Use este saldo para pagar pedidos elegíveis.</p>
                 </div>
                 <div class="card-footer">
                     @if (session('wallet_success'))
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title mb-0">Transações recentes</div>
-                    <p class="text-muted small mb-0">Últimas movimentações da sua carteira.</p>
+                    <p class="text-muted small mb-0" style="margin-left:10px">Últimas movimentações da sua carteira.</p>
                 </div>
                 <div class="table-responsive">
                     <table class="table card-table table-vcenter mb-0">
