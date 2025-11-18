@@ -66,6 +66,10 @@
                     @else
                         <div class="text-muted">Saldo insuficiente para pagar este pedido.</div>
                     @endif
+                    <hr>
+                    <a class="btn btn-outline-secondary w-100" href="{{ route('support.contact', ['order' => $order->id]) }}">
+                        Falar com suporte sobre este pedido
+                    </a>
                 </div>
             </div>
         </div>

@@ -4,12 +4,19 @@ namespace App\Livewire\Support;
 
 use App\Models\Order;
 use App\Models\SupportTicket;
-use Livewire\Component;
 use Illuminate\View\View;
+use Livewire\Component;
 
 class ContactForm extends Component
 {
     public ?int $orderId = null;
+
+    /**
+     * @var array<int, string>
+     */
+    protected array $queryString = [
+        'orderId' => ['as' => 'order'],
+    ];
 
     /**
      * @var array{
@@ -30,7 +37,7 @@ class ContactForm extends Component
 
     public function mount(?int $order = null): void
     {
-        $this->orderId = $order;
+        $this->orderId = $order ?? $this->orderId;
 
         if (auth()->check()) {
             $this->form['name'] = auth()->user()->name;

@@ -1,8 +1,10 @@
 <?php
 
 use App\Livewire\Orders\NewOrderWizard;
+use App\Livewire\Support\ContactForm;
 use App\Models\Order as OrderModel;
 use App\Models\Wallet;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -12,19 +14,57 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', function () {
-    $certidoes = auth()->user()
-        ->certidoes()
-        ->orderByDesc('data_inclusao')
-        ->orderByDesc('created_at')
+    $orders = auth()->user()
+        ->orders()
+        ->with('subject')
+        ->latest()
+        ->limit(10)
         ->get();
+    $wallet = \App\Models\Wallet::firstOrCreate(
+        ['user_id' => auth()->id()],
+        ['balance' => 0],
+    );
 
-    return view('dashboard', compact('certidoes'));
+    return view('dashboard', [
+        'orders' => $orders,
+        'wallet' => $wallet,
+    ]);
 })
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('orders/new', NewOrderWizard::class)->name('orders.new');
+    Route::get('orders', function (Request $request) {
+        $search = $request->string('search')->trim();
+
+        $orders = OrderModel::query()
+            ->where('user_id', auth()->id())
+            ->with('subject')
+            ->when($search->isNotEmpty(), function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('id', $search->toString())
+                        ->orWhereHas('subject', fn ($sq) => $sq->where('name', 'like', "%{$search}%"));
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('orders.index', [
+            'orders' => $orders,
+            'search' => $search->toString(),
+        ]);
+    })->name('orders.index');
+
+    Route::get('orders/{order}', function (OrderModel $order) {
+        abort_unless($order->user_id === auth()->id(), 403);
+
+        $order->load(['subject', 'items.certificateType', 'payments']);
+
+        return view('orders.show', ['order' => $order]);
+    })->name('orders.show');
+
     Route::get('orders/{order}/payment', function (OrderModel $order) {
         abort_unless($order->user_id === auth()->id(), 403);
 
@@ -78,6 +118,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return back()->with('wallet_success', __('Pedido pago com saldo.'));
     })->name('orders.payment.wallet');
 
+    Route::get('contato', ContactForm::class)->name('support.contact');
+
     Route::get('saldo', function () {
         $wallet = Wallet::firstOrCreate(
             ['user_id' => auth()->id()],
@@ -94,6 +136,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'transactions' => $transactions,
         ]);
     })->name('wallet.balance');
+
+    Route::post('saldo', function (Request $request) {
+        $data = $request->validate([
+            'amount' => ['required', 'numeric', 'min:1'],
+            'description' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $wallet = Wallet::firstOrCreate(
+            ['user_id' => auth()->id()],
+            ['balance' => 0],
+        );
+
+        $wallet->transactions()->create([
+            'type' => 'credit',
+            'source' => 'recharge',
+            'amount' => $data['amount'],
+            'description' => $data['description'] ?? 'Recarga de saldo',
+        ]);
+
+        $wallet->increment('balance', $data['amount']);
+
+        return back()->with('wallet_success', __('Saldo adicionado com sucesso.'));
+    })->name('wallet.add');
 });
 
 Route::middleware(['auth'])->group(function () {

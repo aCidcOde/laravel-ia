@@ -1,31 +1,30 @@
-<x-layouts.app :title="__('Dashboard')">
-    <div class="row row-cards mb-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-muted">Pedidos</div>
-                    <div class="h1 mb-3">{{ $orders->count() }}</div>
-                    <p class="text-muted mb-0">Total de pedidos recentes.</p>
+<x-layouts.app :title="__('Pedidos')">
+    <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <p class="text-muted mb-1 text-uppercase fw-semibold small">Pedidos</p>
+            <h2 class="mb-0">Lista de pedidos</h2>
+            <p class="text-muted mb-0">Busque e acompanhe seus pedidos recentes.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ route('orders.new') }}">Novo Pedido</a>
+    </div>
+
+    <div class="card mb-3">
+        <form method="GET" action="{{ route('orders.index') }}">
+            <div class="card-body d-flex flex-wrap gap-2 align-items-end">
+                <div class="flex-fill" style="min-width:240px;">
+                    <label class="form-label">Buscar por ID ou sujeito</label>
+                    <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Ex.: 123 ou João da Silva">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-primary mt-1">Buscar</button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-muted">Saldo disponível</div>
-                    <div class="h1 mb-3">R$ {{ number_format($wallet->balance, 2, ',', '.') }}</div>
-                    <p class="text-muted mb-0">Use o saldo para pagar pedidos elegíveis.</p>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 
     <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
-            <div>
-                <h3 class="card-title mb-0">Últimos pedidos</h3>
-                <p class="text-muted mb-0">Pedidos mais recentes associados a você.</p>
-            </div>
+        <div class="card-header">
+            <div class="card-title mb-0">Pedidos</div>
         </div>
         <div class="table-responsive">
             <table class="table card-table table-vcenter">
@@ -47,9 +46,7 @@
                                 <div class="fw-semibold">{{ $order->subject?->name ?? '—' }}</div>
                                 <div class="text-muted text-xs">{{ $order->subject?->document }}</div>
                             </td>
-                            <td>
-                                <span class="badge bg-secondary">{{ $order->status }}</span>
-                            </td>
+                            <td><span class="badge bg-secondary">{{ $order->status }}</span></td>
                             <td class="text-end">R$ {{ number_format($order->total_amount, 2, ',', '.') }}</td>
                             <td class="text-end">{{ $order->created_at->format('d/m/Y H:i') }}</td>
                             <td class="text-end">
@@ -65,6 +62,9 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer">
+            {{ $orders->links() }}
         </div>
     </div>
 </x-layouts.app>

@@ -2,7 +2,19 @@
 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between w-100 gap-3 ml-2" id="navbar-menu">
     <nav class="mr-3 d-flex flex-wrap align-items-center gap-3">
         <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('dashboard') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('dashboard') }}">
-            <i class="ti ti-layout-dashboard me-1"></i> Dashboard
+            <i class="ti ti-layout-dashboard me-1"></i> Inicio
+        </a>
+        <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('orders.index') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('orders.index') }}">
+            <i class="ti ti-list-details me-1"></i> Pedidos
+        </a>
+        <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('orders.new') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('orders.new') }}">
+            <i class="ti ti-plus me-1"></i> Novo Pedido
+        </a>
+        <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('wallet.balance') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('wallet.balance') }}">
+            <i class="ti ti-wallet me-1"></i> Saldo
+        </a>
+        <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('support.contact') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('support.contact') }}">
+            <i class="ti ti-headset me-1"></i> Suporte
         </a>
         <a class="text-decoration-none text-white fw-semibold {{ request()->routeIs('profile.*') ? 'opacity-100' : 'opacity-75' }}" href="{{ route('profile.edit') }}">
             <i class="ti ti-settings me-1"></i> Configurações
@@ -26,19 +38,7 @@
                 <div class="fw-semibold">{{ $user?->name }}</div>
                 <div class="text-muted text-xs">{{ $user?->email }}</div>
             </div>
-            <i class="ti ti-chevron-down d-none d-md-inline"></i>
         </a>
-            <div class="dropdown-menu dropdown-menu-end">
-                <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                    <i class="ti ti-user-cog me-2"></i> Preferências
-                </a>
-                <div class="dropdown-divider"></div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="dropdown-item text-danger">
-                    <i class="ti ti-logout me-2"></i> Sair
-                </button>
-            </form>
-        </div>
+            
     </div>
 </div>

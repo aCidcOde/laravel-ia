@@ -252,6 +252,43 @@
                 color: var(--text);
             }
 
+            .hero-card label {
+                display: block;
+                margin-bottom: 0.35rem;
+                color: var(--text);
+                font-weight: 600;
+            }
+
+            .hero-card input,
+            .hero-card textarea {
+                width: 100%;
+                background: rgba(15, 23, 42, 0.85);
+                border: 1px solid var(--border);
+                border-radius: 0.75rem;
+                color: var(--text);
+                padding: 0.85rem 1rem;
+                font-size: 1rem;
+                outline: none;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+            }
+
+            .hero-card input::placeholder,
+            .hero-card textarea::placeholder {
+                color: var(--muted);
+            }
+
+            .hero-card input:focus,
+            .hero-card textarea:focus {
+                border-color: rgba(56, 189, 248, 0.7);
+                box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+            }
+
+            .hero-card textarea {
+                min-height: 120px;
+                resize: vertical;
+            }
+
             .bullet-list {
                 list-style: none;
                 padding: 0;

@@ -238,6 +238,7 @@ class NewOrderWizard extends Component
         }
 
         $this->clearValidation(['items']);
+        $this->fillRequesterFromUser();
         $this->step = 3;
     }
 
@@ -331,6 +332,8 @@ class NewOrderWizard extends Component
             'requester_email' => $order->requester_email ?? '',
             'requester_phone' => $order->requester_phone ?? '',
         ];
+
+        $this->fillRequesterFromUser();
     }
 
     /**
@@ -356,6 +359,23 @@ class NewOrderWizard extends Component
             ->where('user_id', auth()->id())
             ->with(['subject', 'items.certificateType'])
             ->find($this->orderId);
+    }
+
+    protected function fillRequesterFromUser(): void
+    {
+        $user = auth()->user();
+
+        if (! $user) {
+            return;
+        }
+
+        if (empty($this->requester['requester_name'])) {
+            $this->requester['requester_name'] = $user->name;
+        }
+
+        if (empty($this->requester['requester_email'])) {
+            $this->requester['requester_email'] = $user->email;
+        }
     }
 
     public function render(): View

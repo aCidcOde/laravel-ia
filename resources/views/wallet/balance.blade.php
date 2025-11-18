@@ -10,6 +10,23 @@
                     <div class="h2 mb-2">R$ {{ number_format($wallet->balance, 2, ',', '.') }}</div>
                     <p class="text-muted mb-0">Use este saldo para pagar pedidos elegíveis.</p>
                 </div>
+                <div class="card-footer">
+                    @if (session('wallet_success'))
+                        <div class="alert alert-success mb-2">
+                            {{ session('wallet_success') }}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('wallet.add') }}" class="d-flex flex-column gap-2">
+                        @csrf
+                        <label class="form-label mb-1">Adicionar saldo</label>
+                        <input type="number" step="0.01" min="1" name="amount" class="form-control" placeholder="Valor em R$" required>
+                        <input type="text" name="description" class="form-control" placeholder="Descrição (opcional)">
+                        @error('amount')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+                        <button type="submit" class="btn btn-primary w-100">Adicionar saldo</button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col-lg-8">

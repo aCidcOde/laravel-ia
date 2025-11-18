@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
             <span class="font-semibold text-sky-400">
-                Tel: (11) 9 4849-4857
+                Dúvidas? (11) 9 4849-4857
             </span>
             <flux:link
                 :href="route('login')"
