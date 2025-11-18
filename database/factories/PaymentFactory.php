@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,13 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'order_id' => Order::factory(),
+            'user_id' => User::factory(),
+            'method' => 'wallet',
+            'amount' => fake()->randomFloat(2, 10, 200),
+            'status' => 'pending',
+            'gateway_transaction_id' => null,
+            'metadata' => [],
         ];
     }
 }
