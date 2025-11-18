@@ -58,4 +58,9 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function supportTickets(): HasMany
+    {
+        return $this->hasMany(SupportTicket::class, 'order_id');
+    }
 }
