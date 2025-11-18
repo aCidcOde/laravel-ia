@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Planeta Certidões | Hospedagem de documentos digitais</title>
-        <meta name="description" content="O Planeta Certidões é um serviço de hospedagem de documentos diversos em formato digital, com acesso 24 horas por dia, 7 dias por semana.">
+        <title>Planeta Certidões | Emissão automática de certidões</title>
+        <meta name="description" content="Cadastre, escolha certidões, pague online e receba automaticamente no e-mail com o robô de due diligence do Planeta Certidões.">
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -57,7 +57,6 @@
             .container {
                 width: min(1200px, 94vw);
                 margin: 0 auto;
-                
             }
 
             header,
@@ -86,13 +85,13 @@
 
             h1 {
                 font-family: 'Raleway', 'Roboto', sans-serif;
-                font-size: clamp(2.5rem, 6vw, 4rem);
+                font-size: clamp(2.5rem, 6vw, 3.8rem);
                 margin: 0 0 1.5rem;
                 line-height: 1.1;
             }
 
             h2 {
-                font-size: clamp(2rem, 4vw, 2.8rem);
+                font-size: clamp(2rem, 4vw, 2.6rem);
                 margin: 0 0 0.75rem;
                 font-family: 'Raleway', 'Roboto', sans-serif;
             }
@@ -126,11 +125,6 @@
                 color: var(--accent);
             }
 
-            .top-nav-phone {
-                font-weight: 600;
-                color: var(--accent);
-            }
-
             .top-nav-cta {
                 display: inline-flex;
                 align-items: center;
@@ -154,7 +148,41 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 1rem;
-                margin-top: 2rem;
+                margin-top: 1.75rem;
+            }
+
+            .meta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                color: var(--muted);
+                font-size: 0.95rem;
+            }
+
+            .pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.55rem 0.95rem;
+                border-radius: 999px;
+                background: rgba(148, 163, 184, 0.1);
+                border: 1px solid var(--border);
+                color: var(--text);
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .pill span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 999px;
+                background: rgba(56, 189, 248, 0.2);
+                color: var(--accent);
+                font-size: 0.85rem;
+                font-weight: 600;
             }
 
             .btn {
@@ -195,40 +223,35 @@
                 background: var(--bg-card);
                 border: 1px solid var(--border);
                 border-radius: 1.5rem;
-                padding: 2rem;
+                padding: 1.75rem;
                 box-shadow: 0 20px 50px rgba(2, 6, 23, 0.5);
                 display: flex;
                 flex-direction: column;
-                gap: 1.25rem;
+                gap: 1rem;
             }
 
-            .hero-card form {
-                display: flex;
-                flex-direction: column;
-                gap: 0.9rem;
-            }
-
-            label {
-                font-size: 0.9rem;
-                color: var(--muted);
-                display: block;
-                margin-bottom: 0.25rem;
-            }
-
-            input,
-            textarea {
-                width: 100%;
-                padding: 0.85rem 1rem;
-                border-radius: 0.85rem;
-                border: 1px solid var(--border);
-                background: rgba(15, 23, 42, 0.8);
+            .hero-card h3 {
                 color: var(--text);
-                font-family: inherit;
             }
 
-            textarea {
-                resize: vertical;
-                min-height: 130px;
+            .bullet-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: grid;
+                gap: 0.8rem;
+            }
+
+            .bullet-list li {
+                display: flex;
+                gap: 0.65rem;
+                align-items: flex-start;
+                color: var(--text);
+            }
+
+            .bullet-list li span {
+                color: var(--accent);
+                font-weight: 700;
             }
 
             .card-grid {
@@ -247,15 +270,16 @@
                 min-height: 210px;
             }
 
-            .card span {
+            .card span.badge {
                 display: inline-flex;
-                padding: 0.3rem 0.85rem;
+                padding: 0.35rem 0.9rem;
                 border-radius: 999px;
-                font-size: 0.8rem;
-                letter-spacing: 0.06em;
+                font-size: 0.82rem;
+                letter-spacing: 0.04em;
                 color: var(--accent);
                 background: rgba(56, 189, 248, 0.12);
                 margin-bottom: 0.75rem;
+                font-weight: 700;
             }
 
             .features-list,
@@ -274,6 +298,7 @@
                 border: 1px solid var(--border);
                 border-radius: 1rem;
                 padding: 1.25rem;
+                color: var(--text);
             }
 
             .highlight {
@@ -288,7 +313,7 @@
                 padding: 2rem;
                 background: linear-gradient(120deg, rgba(56, 189, 248, 0.12), rgba(2, 6, 23, 0.9));
                 font-style: italic;
-                font-size: 1.1rem;
+                font-size: 1.05rem;
             }
 
             .contact-grid {
@@ -319,135 +344,159 @@
                     <div class="top-nav">
                         <div class="flex items-center gap-3 top-nav-logo">
                             <img src="/planeta-certidoes.png" alt="Planeta Certidões" style="height:60px; margin:10px; width:auto;" />
-                            
                         </div>
-                        <div>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ url('/login') }}" class="top-nav-cta" style="background: transparent; color: var(--text); border-color: var(--border); box-shadow: none;">Entrar</a>
                             <a class="top-nav-cta" href="{{ route('register') }}">Criar conta</a>
                         </div>
                     </div>
                     <div class="hero">
                         <div>
-                            <p class="eyebrow">Serviço de hospedagem digital</p>
-                            <h1>Planeta Certidões</h1>
-                            <p>O Planeta Certidões é um serviço de hospedagem de documentos diversos em formato digital. Por meio desta solução você acessa certidões, contratos e informações essenciais de qualquer lugar, com disponibilidade total.</p>
-                            <p>Por meio deste serviço você poderá acessar seus documentos, certidões e informações de qualquer localidade, 24 horas por dia, 7 dias por semana.</p>
-                            <ul class="features-list" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 1.5rem;">
-                                <li>Documentos organizados e acessíveis num só portal.</li>
-                                <li>Acesso seguro com login e senha exclusivos.</li>
-                                <li>Atualização em até 24 horas após cada emissão.</li>
-                            </ul>
+                            <p class="eyebrow">Robô de due diligence</p>
+                            <h1>Emita certidões fácil e receba no email</h1>
+                            <p>Cadastre sua conta, escolha as certidões, finalize o pagamento e deixe que o robô busque, acompanhe e entregue tudo para você. Sem filas, sem ligações para cartórios, sem assustar seu time.</p>
                             <div class="cta-row">
-                                <a href="{{ url('/login') }}" class="btn btn-primary">Acessar o sistema</a>
-                                <a href="#contato" class="btn btn-outline">Falar com a equipe</a>
+                                <a href="{{ route('register') }}" class="btn btn-primary">Começar agora</a>
+                                <a href="#como-funciona" class="btn btn-outline">Ver como funciona</a>
+                            </div>
+                            <div class="meta-row" style="margin-top: 1rem;">
+                                <div class="pill"><span>1</span>Cadastro em minutos</div>
+                                <div class="pill"><span>2</span>Pagamento online</div>
+                                <div class="pill"><span>3</span>Entrega automática</div>
                             </div>
                         </div>
                         <div class="hero-card">
-                            <div>
-                                <span>Login rápido</span>
-                                <h3>Entre agora no Planeta Certidões</h3>
-                                <p>Digite seu usuário e senha para gerenciar todo o acervo digital hospedado na plataforma.</p>
-                            </div>
-                            <form action="{{ url('/login') }}" method="post">
-                                @csrf
-                                <div>
-                                    <label for="email">E-mail</label>
-                                    <input id="email" type="email" name="email" placeholder="seu@email.com" required />
-                                </div>
-                                <div>
-                                    <label for="password">Senha</label>
-                                    <input id="password" type="password" name="password" placeholder="Sua senha" required />
-                                </div>
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar sistema</button>
-                            </form>
+                            <h3>Fluxo do pedido</h3>
+                            <ul class="bullet-list">
+                                <li><span>✓</span>Selecione as certidões (federal, estadual, municipal, cartório).</li>
+                                <li><span>✓</span>Envie os dados da empresa ou pessoa.</li>
+                                <li><span>✓</span>Pague com segurança e acompanhe o status em tempo real.</li>
+                                <li><span>✓</span>As certidões são anexadas ao seu painel e enviadas por e-mail.</li>
+                            </ul>
+                            <div class="quote">Entrega organizada, com histórico, alertas e comprovantes para cada solicitação.</div>
                         </div>
                     </div>
                 </header>
 
                 <main>
-                    <section id="servicos">
-                        <p class="eyebrow">Serviços</p>
-                        <h2>Pacotes sob medida para sua operação</h2>
-                        <p>Escolha a modalidade que melhor se adapta ao volume de documentos da sua empresa.</p>
+                    <section id="como-funciona">
+                        <p class="eyebrow">Passo a passo</p>
+                        <h2>Do cadastro ao recebimento em minutos</h2>
                         <div class="card-grid">
                             <div class="card">
-                                <span>Digital</span>
-                                <h3>Licença com administração própria</h3>
-                                <p>Licença de uso por meio de locação de espaço no portal, onde o próprio usuário é responsável por administrar sua conta e organizar os documentos hospedados.</p>
+                                <span class="badge">1. Cadastre-se</span>
+                                <h3>Conta pronta em poucos cliques</h3>
+                                <p>Crie sua conta, defina os dados da empresa e convide sua equipe. Tudo com autenticação segura.</p>
                             </div>
                             <div class="card">
-                                <span>Digital Comodato</span>
-                                <h3>Gestão completa pela Emergency</h3>
-                                <p>Todas as certidões emitidas pela Emergency durante a vigência do contrato são digitalizadas, incluídas, atualizadas e administradas pela equipe sem custo adicional.</p>
+                                <span class="badge">2. Escolha as certidões</span>
+                                <h3>Monte o carrinho</h3>
+                                <p>Selecione as certidões necessárias, adicione quantas precisar e deixe o robô conduzir cada busca.</p>
                             </div>
                             <div class="card">
-                                <span>Digital Plus</span>
-                                <h3>Comodato com autenticação digital</h3>
-                                <p>Inclui tudo do pacote Digital Comodato, com todas as certidões autenticadas digitalmente. Fale conosco para receber uma proposta personalizada.</p>
+                                <span class="badge">3. Pague online</span>
+                                <h3>Checkout simplificado</h3>
+                                <p>Finalize com pagamento seguro e receba confirmação de cada solicitação na hora.</p>
+                            </div>
+                            <div class="card">
+                                <span class="badge">4. Receba no e-mail</span>
+                                <h3>Entrega automática</h3>
+                                <p>As certidões são coletadas, armazenadas no painel e enviadas para o e-mail indicado assim que liberadas.</p>
                             </div>
                         </div>
                     </section>
 
-                    <section id="funcionalidades">
-                        <p class="eyebrow">Funcionalidades do sistema</p>
-                        <h2>Ferramentas para nunca mais perder um documento</h2>
-                        <div class="highlight">
-                            <h3>Sistema de busca</h3>
-                            <p>Sistema de busca funcional, por nome de empresa, certidões e referências para encontrar rapidamente qualquer arquivo hospedado.</p>
-                        </div>
-                        <div class="highlight">
-                            <h3>Tudo organizado</h3>
-                            <p>Suas empresas e suas certidões ficam organizadas de forma inteligente para que você não perca tempo navegando entre pastas físicas ou planilhas.</p>
-                        </div>
-                    </section>
-
-                    <section id="vantagens">
-                        <p class="eyebrow">Vantagens</p>
-                        <h2>Por que hospedar seus arquivos no Planeta Certidões?</h2>
+                    <section id="beneficios">
+                        <p class="eyebrow">Por que usar</p>
+                        <h2>Menos operação manual, mais controle</h2>
                         <ul class="advantages-list">
                             <li>
-                                <h3>Redução de custos e agilidade</h3>
-                                <p>Dispensa busca em arquivos físicos e reprodução de fotocópias. Sua equipe ganha produtividade ao cuidar de todo o acervo em ambiente digital.</p>
+                                <h3>Robô 24/7</h3>
+                                <p>Buscas automáticas em cartórios e órgãos públicos, sem filas e sem depender de horários.</p>
                             </li>
                             <li>
-                                <h3>Segurança</h3>
-                                <p>O acesso é restrito através de login e senha exclusivas. O site foi desenvolvido com as mais poderosas ferramentas de segurança do mercado.</p>
+                                <h3>Alertas e histórico</h3>
+                                <p>Status em tempo real, histórico das solicitações, recibos e comprovantes num só lugar.</p>
                             </li>
                             <li>
-                                <h3>Atualização diária</h3>
-                                <p>Novas certidões ficam disponíveis em até 24 horas após a emissão pela Emergency, mantendo tudo sempre atualizado.</p>
+                                <h3>Entrega confiável</h3>
+                                <p>Envio automático por e-mail e arquivamento na plataforma para auditorias e compliance.</p>
                             </li>
                             <li>
-                                <h3>Facilidade de uso</h3>
-                                <p>Interface amigável que torna simples utilizar e administrar o portal, mesmo para equipes não técnicas.</p>
+                                <h3>Segurança e controle</h3>
+                                <p>Acesso autenticado, trilha de auditoria e organização por cliente, CNPJ ou CPF.</p>
                             </li>
                             <li>
-                                <h3>Suporte técnico</h3>
-                                <p>Oferecemos orientação completa para aproveitar todos os recursos disponíveis e garantir uma operação contínua.</p>
+                                <h3>Equipe focada no essencial</h3>
+                                <p>Reduza chamados de cartório, ligações e acompanhamento manual. O robô faz o trabalho repetitivo.</p>
+                            </li>
+                            <li>
+                                <h3>Integração fácil</h3>
+                                <p>Dados centralizados e prontos para compartilhar com jurídico, fiscal ou onboarding de novos clientes.</p>
                             </li>
                         </ul>
                     </section>
 
-                    <section id="publico-alvo">
-                        <p class="eyebrow">Público alvo</p>
-                        <h2>Feito para quem precisa de agilidade e segurança</h2>
-                        <div class="quote">
-                            <p>“Este portal foi projetado e desenvolvido com a finalidade de atender todas as empresas que precisam utilizar documentos e certidões de forma rápida, segura e descentralizada para o exercício de suas atividades.”</p>
-                            <p style="margin-top: 1rem; font-style: normal; color: var(--text); font-weight: 600;">Construtoras, escritórios de advocacia, bancos, agentes financeiros e tantas outras organizações se beneficiam do Planeta Certidões.</p>
+                    <section id="certidoes">
+                        <p class="eyebrow">Cobertura</p>
+                        <h2>Certidões que o robô já automatiza</h2>
+                        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+                            <div class="card">
+                                <span class="badge">Governo Federal</span>
+                                <p>Receita Federal, Dívida Ativa, FGTS e CNDs para empresas e pessoas físicas.</p>
+                            </div>
+                            <div class="card">
+                                <span class="badge">Estados</span>
+                                <p>Certidões estaduais, ICMS, IPVA e pendências fiscais com acompanhamento automatizado.</p>
+                            </div>
+                            <div class="card">
+                                <span class="badge">Municípios</span>
+                                <p>Certidões de ISS, IPTU e negativa de débitos municipais para quem vende ou presta serviço.</p>
+                            </div>
+                            <div class="card">
+                                <span class="badge">Cartórios</span>
+                                <p>Protestos, RTD, ações cíveis e trabalhistas com alertas de atualizações.</p>
+                            </div>
+                            <div class="card">
+                                <span class="badge">Pessoal</span>
+                                <p>CNDT, distribuidor federal e estadual para onboarding de parceiros e equipes.</p>
+                            </div>
                         </div>
                     </section>
 
-                    <section id="contato">
-                        <p class="eyebrow">Contato</p>
-                        <h2>Fale com a Emergency</h2>
-                        <p>Estamos prontos para apresentar o Planeta Certidões, preparar uma proposta e liberar seu acesso.</p>
+                    <section id="operacao">
+                        <p class="eyebrow">Operação assistida</p>
+                        <h2>Para times jurídicos, fiscais e de risco</h2>
+                        <div class="highlight">
+                            <h3>Fluxo pronto para due diligence</h3>
+                            <p>Monte listas de certidões por tipo de cliente, salve modelos e reaproveite as mesmas seleções a cada novo pedido.</p>
+                        </div>
+                        <div class="highlight">
+                            <h3>Centralização</h3>
+                            <p>Acompanhe tudo no painel: solicitações, comprovantes de pagamento, prazos de validade e quem fez cada ação.</p>
+                        </div>
+                        <div class="highlight">
+                            <h3>Notificações</h3>
+                            <p>Alertas por e-mail sempre que uma certidão é atualizada ou precisa ser renovada.</p>
+                        </div>
+                    </section>
+
+                    <section id="cta-final">
+                        <p class="eyebrow">Pronto para usar</p>
+                        <h2>Cadastre agora e teste o robô</h2>
                         <div class="contact-grid">
                             <div class="card">
-                                <span>Atendimento</span>
-                                <h3>Plantão comercial</h3>
-                                <p>Envie uma mensagem com nome, e-mail, assunto e uma breve descrição. Nossa equipe responde rapidamente para conduzir a implantação.</p>
-                                <p style="color: var(--text); font-weight: 600;">Telefone e e-mail disponíveis mediante solicitação.</p>
+                                <span class="badge">Suporte</span>
+                                <h3>Acompanhe com nosso time</h3>
+                                <p>Podemos configurar suas primeiras listas de certidões, revisar dados e acompanhar as primeiras emissões.</p>
+                                <p style="color: var(--text); font-weight: 600;">Pague online e receba no e-mail em minutos.</p>
+                                <div class="cta-row">
+                                    <a href="{{ route('register') }}" class="btn btn-primary" style="width: 100%; justify-content: center;">Criar conta</a>
+                                    <a href="{{ url('/login') }}" class="btn btn-outline" style="width: 100%; justify-content: center;">Acessar painel</a>
+                                </div>
                             </div>
                             <form class="hero-card" action="#" method="post">
+                                <h3>Fale com a equipe</h3>
                                 <div>
                                     <label for="contact-name">Nome</label>
                                     <input id="contact-name" name="name" type="text" placeholder="Como devemos te chamar?" required>
@@ -458,13 +507,13 @@
                                 </div>
                                 <div>
                                     <label for="contact-subject">Assunto</label>
-                                    <input id="contact-subject" name="subject" type="text" placeholder="Qual é sua necessidade?" required>
+                                    <input id="contact-subject" name="subject" type="text" placeholder="Quais certidões você precisa?" required>
                                 </div>
                                 <div>
                                     <label for="contact-message">Mensagem</label>
-                                    <textarea id="contact-message" name="message" placeholder="Conte um pouco sobre seu projeto."></textarea>
+                                    <textarea id="contact-message" name="message" placeholder="Fale sobre volume, prazos e para quem serão entregues."></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar mensagem</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Chamar especialista</button>
                             </form>
                         </div>
                     </section>
@@ -472,7 +521,7 @@
             </div>
 
             <footer>
-                <p>Todos os direitos reservados — &copy; {{ date('Y') }} Planeta Certidões / Emergency</p>
+                <p>Todos os direitos reservados — &copy; {{ date('Y') }} Planeta Certidões</p>
             </footer>
         </div>
     </body>
